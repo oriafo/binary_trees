@@ -1,12 +1,37 @@
 #include "binary_trees.h"
+
 /**
- * function_name - function description
- * @a: description of parameter a
- * @b: description of parameter b
- * Return: description of the return of this function
+ * binary_tree_is_bst - checks if a binary tree is a valid Binary Search Tree
+ * @tree: a pointer to the root node of the tree to check
+ *
+ * Return: 1 if tree is a valid BST
+ *         0 otherwise
  */
-prototype whitout semicolon
+int binary_tree_is_bst(const binary_tree_t *tree)
 {
-/* Remember to check first if parameters exists */
-return (0);
+	if (!tree)
+		return (0);
+	return (btib_helper(tree, INT_MIN, INT_MAX));
+}
+
+/**
+ * btib_helper - checks if a binary tree is a valid Binary Search Tree
+ * @tree: a pointer to the root node of the tree to check
+ * @min: Lower bound of checked nored
+ * @max: Upper bound of checked nodes
+ *
+ * Return: 1 if tree is a valid BST
+ *         0 otherwise
+ */
+int btib_helper(const binary_tree_t *tree, int min, int max)
+{
+	if (!tree)
+		return (1);
+
+	if (tree->n < min || tree->n > max)
+		return (0);
+
+	return (btib_helper(tree->left, min, tree->n - 1) &&
+		btib_helper(tree->right, tree->n + 1, max));
+	/* -1 and +1 stem from "There must be no duplicate values" req */
 }
